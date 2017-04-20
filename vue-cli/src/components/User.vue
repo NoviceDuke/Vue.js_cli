@@ -1,44 +1,50 @@
 <template>
-    <div class="component">
-        <h1>The User Component</h1>
-        <p>I'm an awesome User!</p>
-        <hr>
-        <button @click="changeName">Change my name</button>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <app-user-detail :myName="name"></app-user-detail>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <app-user-edit></app-user-edit>
-            </div>
+<div class="component">
+    <h1>The User Component</h1>
+    <p>I'm an awesome User!</p>
+    <p>My name is {{ name }}</p>
+    <hr>
+    <button @click="changeName">Change my name</button>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <app-user-detail :myName="name" @nameWasReset=" name = $event " :restFn="resetName" :userAge=" age"></app-user-detail>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <app-user-edit :userAge="age" @ageWasEdit="age = $event"></app-user-edit>
+
         </div>
     </div>
+</div>
 </template>
 
 <script>
-    import UserDetail from './UserDetail.vue';
-    import UserEdit from './UserEdit.vue';
+import UserDetail from './UserDetail.vue';
+import UserEdit from './UserEdit.vue';
 
-    export default {
-        data:function(){
-            return{
-                    name:'Duke'
-                };
+export default {
+    data: function() {
+        return {
+            name: 'Duke',
+            age: 26
+        };
+    },
+    methods: {
+        changeName() {
+            this.name = 'Anna';
         },
-        methods:{
-            changeName(){
-                this.name = 'Anna';
-            }
-        },
-        components: {
-            appUserDetail: UserDetail,
-            appUserEdit: UserEdit
+        resetName() {
+            this.name = 'Duke';
         }
+    },
+    components: {
+        appUserDetail: UserDetail,
+        appUserEdit: UserEdit
     }
+}
 </script>
 
 <style scoped>
-    div {
-        background-color: lightblue;
-    }
+div {
+    background-color: lightblue;
+}
 </style>
